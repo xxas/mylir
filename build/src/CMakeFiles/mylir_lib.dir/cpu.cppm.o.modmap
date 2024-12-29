@@ -1,5 +1,0 @@
--x c++-module
--fmodule-output=src/CMakeFiles/mylir_lib.dir/mylir-cpu.pcm
--fmodule-file=std=CMakeFiles/__cmake_cxx26.dir/std.pcm
--fmodule-file=mylir:lang=src/CMakeFiles/mylir_lib.dir/mylir-lang.pcm
--fmodule-file=mylir:program=src/CMakeFiles/mylir_lib.dir/mylir-program.pcm

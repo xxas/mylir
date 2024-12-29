@@ -1,8 +1,0 @@
-/home/xxa/projects/mylir_cxx/build/CMakeFiles/__cmake_cxx23.dir
-/home/xxa/projects/mylir_cxx/build/CMakeFiles/__cmake_cxx26.dir
-/home/xxa/projects/mylir_cxx/build/CMakeFiles/main.dir
-/home/xxa/projects/mylir_cxx/build/CMakeFiles/edit_cache.dir
-/home/xxa/projects/mylir_cxx/build/CMakeFiles/rebuild_cache.dir
-/home/xxa/projects/mylir_cxx/build/src/CMakeFiles/mylir_lib.dir
-/home/xxa/projects/mylir_cxx/build/src/CMakeFiles/edit_cache.dir
-/home/xxa/projects/mylir_cxx/build/src/CMakeFiles/rebuild_cache.dir

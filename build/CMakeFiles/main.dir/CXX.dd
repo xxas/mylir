@@ -1,3 +1,0 @@
-ninja_dyndep_version = 1.0
-build CMakeFiles/main.dir/main.cxx.o: dyndep | CMakeFiles/__cmake_cxx26.dir/std.pcm src/CMakeFiles/mylir_lib.dir/mylir.pcm
-
