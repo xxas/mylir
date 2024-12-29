@@ -1,0 +1,16 @@
+ninja_dyndep_version = 1.0
+build src/CMakeFiles/mylir_lib.dir/lang.cppm.o | src/CMakeFiles/mylir_lib.dir/mylir-lang.pcm: dyndep | CMakeFiles/__cmake_cxx26.dir/std.pcm
+  restat = 1
+
+build src/CMakeFiles/mylir_lib.dir/mod.cppm.o | src/CMakeFiles/mylir_lib.dir/mylir.pcm: dyndep | src/CMakeFiles/mylir_lib.dir/mylir-lang.pcm src/CMakeFiles/mylir_lib.dir/mylir-program.pcm src/CMakeFiles/mylir_lib.dir/mylir-cpu.pcm
+  restat = 1
+
+build src/CMakeFiles/mylir_lib.dir/program.cppm.o | src/CMakeFiles/mylir_lib.dir/mylir-program.pcm: dyndep | CMakeFiles/__cmake_cxx26.dir/std.pcm src/CMakeFiles/mylir_lib.dir/mylir-lang.pcm
+  restat = 1
+
+build src/CMakeFiles/mylir_lib.dir/cpu.cppm.o | src/CMakeFiles/mylir_lib.dir/mylir-cpu.pcm: dyndep | CMakeFiles/__cmake_cxx26.dir/std.pcm src/CMakeFiles/mylir_lib.dir/mylir-lang.pcm src/CMakeFiles/mylir_lib.dir/mylir-program.pcm
+  restat = 1
+
+build src/CMakeFiles/mylir_lib.dir/lexer.cppm.o | src/CMakeFiles/mylir_lib.dir/mylir-lexer.pcm: dyndep
+  restat = 1
+

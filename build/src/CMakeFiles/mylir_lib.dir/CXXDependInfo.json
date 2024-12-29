@@ -1,0 +1,73 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "GNU",
+	"compiler-id" : "Clang",
+	"compiler-simulate-id" : "",
+	"config" : "",
+	"cxx-modules" : 
+	{
+		"src/CMakeFiles/mylir_lib.dir/cpu.cppm.o" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "",
+			"source" : "/home/xxa/projects/mylir_cxx/src/cpu.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"src/CMakeFiles/mylir_lib.dir/lang.cppm.o" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "",
+			"source" : "/home/xxa/projects/mylir_cxx/src/lang.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"src/CMakeFiles/mylir_lib.dir/lexer.cppm.o" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "",
+			"source" : "/home/xxa/projects/mylir_cxx/src/lexer.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"src/CMakeFiles/mylir_lib.dir/mod.cppm.o" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "",
+			"source" : "/home/xxa/projects/mylir_cxx/src/mod.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"src/CMakeFiles/mylir_lib.dir/program.cppm.o" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "",
+			"source" : "/home/xxa/projects/mylir_cxx/src/program.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		}
+	},
+	"dir-cur-bld" : "/home/xxa/projects/mylir_cxx/build/src",
+	"dir-cur-src" : "/home/xxa/projects/mylir_cxx/src",
+	"dir-top-bld" : "/home/xxa/projects/mylir_cxx/build",
+	"dir-top-src" : "/home/xxa/projects/mylir_cxx",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : [],
+	"language" : "CXX",
+	"linked-target-dirs" : 
+	[
+		"/home/xxa/projects/mylir_cxx/build/CMakeFiles/__cmake_cxx26.dir"
+	],
+	"module-dir" : "/home/xxa/projects/mylir_cxx/build/src/CMakeFiles/mylir_lib.dir"
+}

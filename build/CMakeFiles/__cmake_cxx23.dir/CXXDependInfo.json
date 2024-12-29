@@ -1,0 +1,43 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "GNU",
+	"compiler-id" : "Clang",
+	"compiler-simulate-id" : "",
+	"config" : "",
+	"cxx-modules" : 
+	{
+		"CMakeFiles/__cmake_cxx23.dir/home/xxa/llvm-caches/main/share/libc++/v1/std.compat.cppm.o" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "std",
+			"relative-directory" : "",
+			"source" : "/home/xxa/llvm-caches/main/share/libc++/v1/std.compat.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/__cmake_cxx23.dir/home/xxa/llvm-caches/main/share/libc++/v1/std.cppm.o" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "std",
+			"relative-directory" : "",
+			"source" : "/home/xxa/llvm-caches/main/share/libc++/v1/std.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		}
+	},
+	"dir-cur-bld" : "/home/xxa/projects/mylir_cxx/build",
+	"dir-cur-src" : "/home/xxa/projects/mylir_cxx",
+	"dir-top-bld" : "/home/xxa/projects/mylir_cxx/build",
+	"dir-top-src" : "/home/xxa/projects/mylir_cxx",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : 
+	[
+		"/home/xxa/llvm-caches/main/bin/../lib/x86_64-unknown-linux-gnu/../../share/libc++/v1"
+	],
+	"language" : "CXX",
+	"linked-target-dirs" : [],
+	"module-dir" : "/home/xxa/projects/mylir_cxx/build/CMakeFiles/__cmake_cxx23.dir"
+}

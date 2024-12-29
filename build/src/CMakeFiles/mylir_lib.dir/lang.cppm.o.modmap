@@ -1,0 +1,3 @@
+-x c++-module
+-fmodule-output=src/CMakeFiles/mylir_lib.dir/mylir-lang.pcm
+-fmodule-file=std=CMakeFiles/__cmake_cxx26.dir/std.pcm

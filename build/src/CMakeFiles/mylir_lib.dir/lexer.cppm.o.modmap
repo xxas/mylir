@@ -1,0 +1,2 @@
+-x c++-module
+-fmodule-output=src/CMakeFiles/mylir_lib.dir/mylir-lexer.pcm

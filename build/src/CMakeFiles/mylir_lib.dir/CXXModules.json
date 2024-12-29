@@ -1,0 +1,97 @@
+{
+	"modules" : 
+	{
+		"mylir" : 
+		{
+			"bmi" : "/home/xxa/projects/mylir_cxx/build/src/CMakeFiles/mylir_lib.dir/mylir.pcm",
+			"is-private" : false
+		},
+		"mylir:cpu" : 
+		{
+			"bmi" : "/home/xxa/projects/mylir_cxx/build/src/CMakeFiles/mylir_lib.dir/mylir-cpu.pcm",
+			"is-private" : false
+		},
+		"mylir:lang" : 
+		{
+			"bmi" : "/home/xxa/projects/mylir_cxx/build/src/CMakeFiles/mylir_lib.dir/mylir-lang.pcm",
+			"is-private" : false
+		},
+		"mylir:lexer" : 
+		{
+			"bmi" : "/home/xxa/projects/mylir_cxx/build/src/CMakeFiles/mylir_lib.dir/mylir-lexer.pcm",
+			"is-private" : false
+		},
+		"mylir:program" : 
+		{
+			"bmi" : "/home/xxa/projects/mylir_cxx/build/src/CMakeFiles/mylir_lib.dir/mylir-program.pcm",
+			"is-private" : false
+		}
+	},
+	"references" : 
+	{
+		"mylir" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "src/CMakeFiles/mylir_lib.dir/mylir.pcm"
+		},
+		"mylir:cpu" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "src/CMakeFiles/mylir_lib.dir/mylir-cpu.pcm"
+		},
+		"mylir:lang" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "src/CMakeFiles/mylir_lib.dir/mylir-lang.pcm"
+		},
+		"mylir:lexer" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "src/CMakeFiles/mylir_lib.dir/mylir-lexer.pcm"
+		},
+		"mylir:program" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "src/CMakeFiles/mylir_lib.dir/mylir-program.pcm"
+		},
+		"std" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles/__cmake_cxx26.dir/std.pcm"
+		},
+		"std.compat" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles/__cmake_cxx26.dir/std.compat.pcm"
+		}
+	},
+	"usages" : 
+	{
+		"mylir" : 
+		[
+			"mylir:cpu",
+			"mylir:lang",
+			"mylir:program",
+			"std"
+		],
+		"mylir:cpu" : 
+		[
+			"mylir:lang",
+			"mylir:program",
+			"std"
+		],
+		"mylir:lang" : 
+		[
+			"std"
+		],
+		"mylir:program" : 
+		[
+			"mylir:lang",
+			"std"
+		],
+		"std.compat" : 
+		[
+			"std"
+		]
+	}
+}

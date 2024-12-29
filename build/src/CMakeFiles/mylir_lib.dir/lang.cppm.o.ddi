@@ -1,0 +1,21 @@
+{
+  "revision": 0,
+  "rules": [
+    {
+      "primary-output": "src/CMakeFiles/mylir_lib.dir/lang.cppm.o",
+      "provides": [
+        {
+          "is-interface": true,
+          "logical-name": "mylir:lang",
+          "source-path": "/home/xxa/projects/mylir_cxx/src/lang.cppm"
+        }
+      ],
+      "requires": [
+        {
+          "logical-name": "std"
+        }
+      ]
+    }
+  ],
+  "version": 1
+}
