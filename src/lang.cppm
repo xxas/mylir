@@ -27,12 +27,13 @@ namespace mylir
             {
                 enum class Type
                 {
-                    Unmatched,
+                    Miss,
                 } type;
 
                 std::string message;
             };
 
+            // Converts a string to its respective register by name.
             constexpr static auto from(const std::string& str)
                 -> std::expected<Register::Type, FromError>
             {
@@ -69,7 +70,7 @@ namespace mylir
                 {
                     return std::unexpected(Register::FromError
                         {
-                            .type     = FromError::Type::Unmatched,
+                            .type     = FromError::Type::Miss,
                             .message  = "Unable to find a matching register by mnemonic",
                         });
                 };
@@ -80,7 +81,7 @@ namespace mylir
         {
             enum class Type: std::uint8_t
             {
-                None      = 0b00,
+                Any       = 0b00,
                 Register  = 0b01,
                 Immediate = 0b10,
                 Address   = 0b11,
@@ -125,17 +126,25 @@ namespace mylir
 
         // Common data-flow operand types.
         struct CommonTypes: Operand
-        {
+        {   // Any type of operand is a suitable source.
             constexpr static auto Src_any = Flow
                 {
                     .direction  = Direction::Src,
-                    .type       = Type::None,
+                    .type       = Type::Any,
                 };
 
+            // Only registers are a suitable destination.
             constexpr static auto Dest_register = Flow
                 {
                     .direction  = Direction::Dest,
                     .type       = Type::Register,
+                };
+
+            // Only memory addresses are a suitable destination.
+            constexpr static auto Dest_address = Flow
+                {
+                    .direction  = Direction::Dest,
+                    .type       = Type::Address,
                 };
         };
 
@@ -161,27 +170,28 @@ namespace mylir
             {
                 enum class Type: std::uint8_t
                 {
-                    Unmatched,
+                    Miss,   // Missing data-flow pattern for mnemonic.
                 } type;
 
                 std::string message;
             };
 
+            // Returns the expected data-flow pattern for the operands of the mnemonic.
             constexpr auto pattern()
                 -> std::expected<Df_Pattern, FindPatternError>
             {
-                static const std::unordered_map<Mnemonic::Type, Df_Pattern> map
-                {     // Memory related.
+                static std::unordered_map<Mnemonic::Type, Df_Pattern> map
+                {   // Memory related.
                     { Mnemonic::Type::Mov, { CommonTypes::Dest_register, CommonTypes::Src_any }},
                     { Mnemonic::Type::Pop,  { CommonTypes::Src_any }},
                     { Mnemonic::Type::Push, { CommonTypes::Src_any }},
 
-                      // Arithmetic related.
+                    // Arithmetic related.
                     { Mnemonic::Type::Add, { CommonTypes::Dest_register, CommonTypes::Src_any, CommonTypes::Src_any }},
                     { Mnemonic::Type::Sub, { CommonTypes::Dest_register, CommonTypes::Src_any, CommonTypes::Src_any }},
 
-                      // System related.
-                      { Mnemonic::Type::Prnt, { CommonTypes::Src_any }},
+                    // System related.
+                    { Mnemonic::Type::Prnt, { CommonTypes::Src_any }},
                 };
 
                 if(auto it = map.find(this->type); it != map.end())
@@ -192,15 +202,14 @@ namespace mylir
                 {
                     return std::unexpected(Mnemonic::FindPatternError
                         {
-                            .type     = FindPatternError::Type::Unmatched,
+                            .type     = FindPatternError::Type::Miss,
                             .message  = "Unable to find a matching pattern by mnemonic",
                         });
                 };
             };
         };
 
-
-        // Declaration of an opcodes restrictions, and data flow.
+        // Instruction composition; mnemonic and operands.
         struct Instruction
         {
             using Operands = std::vector<Operand>;
@@ -208,14 +217,15 @@ namespace mylir
             Mnemonic mnemonic;
             Operands operands;
 
+            // 16-bit instruction data-flow pattern.
             union Pattern
-            {   // Operation bitness.
+            {   // Pattern bitness.
                 constexpr static std::size_t Bitness = sizeof(std::uint16_t) * 8;
 
-                // Required bitness to represent all opcodes.
+                // Required bitness to represent opcode family.
                 constexpr static std::size_t Opcode_bitness   = std::bit_width(std::to_underlying(Mnemonic::Type::Len) - 1u);
 
-                // Remaining bits after opcode, and bitness of operands.
+                // Remaining bits after opcode for the payload field, and operand bitness.
                 constexpr static std::size_t Payload_len     = Pattern::Bitness - Pattern::Opcode_bitness;
                 constexpr static std::size_t Operand_bitness = std::bit_width(std::to_underlying(Operand::Type::Len) - 1u);
 
@@ -237,12 +247,13 @@ namespace mylir
                 {
                     OperandLen,   // Too many operands; unable to fit into a 16-bit instruction pattern.
                     Mismatch,     // Operand missmatch: too little/too many operands provided for data-flow pattern.
-                    Unmatched,
+                    Miss,         // Missing data-flow pattern for mnenomic.
                 } type;
 
                 std::string message;
             };
 
+            // Returns an encoded 16-bit pattern for an instruction mnenomic and the data-flow operands.
             constexpr static auto pattern(const Mnemonic& mnemonic, const Mnemonic::Df_Pattern& df_pattern)
                 -> std::expected<Instruction::Pattern, Instruction::ToPatternError>
             {   // Too many operations; they cannot all be fit into the operands field.
@@ -272,11 +283,12 @@ namespace mylir
                         .opcode  = std::to_underlying(mnemonic.type),
                         .payload = operands,
                     };
-            }; 
+            };
 
+            // Converts an instruction to its expected pattern; opcode and data-flow of operands.
             constexpr auto to_pattern()
                 -> std::expected<Instruction::Pattern, Instruction::ToPatternError>
-            {
+            {   // Ensure operands provided aren't more than allowed.
                 if(this->operands.size() > Pattern::Operands_total)
                 {
                     return std::unexpected(ToPatternError
@@ -287,20 +299,21 @@ namespace mylir
                         });
                 };
 
-                // Expected data-flow pattern.
+                // Expected data-flow pattern for the instruction mnemonic.
                 auto df_pattern = mnemonic.pattern();
 
                 if(!df_pattern)
-                {
+                {   // TODO: Possibly implement error type inheritence.
                     const auto& err = df_pattern.error();
 
                     return std::unexpected(ToPatternError
                         {
-                            .type     = ToPatternError::Type::Unmatched,
+                            .type     = ToPatternError::Type::Miss,
                             .message  = err.message,
                         });
                 };
 
+                // Data-flow pattern and operands are inconsistent lengths; syntactical error.
                 if(df_pattern->size() != this->operands.size())
                 {
                     return std::unexpected(ToPatternError
@@ -315,13 +328,15 @@ namespace mylir
             };
         };
 
+        // Program blocks; text, or data blocks.
         using TextBlock = std::vector<Instruction>;
         using DataBlock = std::vector<std::uint8_t>;
         using AnyBlock  = std::variant<TextBlock, DataBlock>;
 
         // Block constraint.
         template<class T> concept Block = std::same_as<TextBlock, T> || std::same_as<DataBlock, T>;
-    
+   
+        // Block width; width measured in elements.
         constexpr auto block_width(const AnyBlock& block)
             -> std::size_t
         {
