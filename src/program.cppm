@@ -34,7 +34,7 @@ namespace mylir
 
             // Returns a std::optional containing a std::reference_wrapper to the underlying std::variant type `T`.
             template<class... Ts> struct Overloads: Ts... { using Ts::operator()...; };
-            template<class T, class Optional = std::optional<std::reference_wrapper<T>>> inline auto get()
+            template<class T, class Optional = std::optional<std::reference_wrapper<T>>> inline auto unwrap()
                 -> Optional
             {
                 auto some = [](T& block)          -> Optional { return Optional(std::ref(block)); };
@@ -58,44 +58,54 @@ namespace mylir
             std::string message;
         };
 
-        // Get the exact block from an address or the nearest.
-        template<class T> auto get(const std::uint32_t& addr)
-            -> std::expected<std::reference_wrapper<T>, GetBlockError>
-        {   // Get the first exact address match for a block.
+        // Returns a std::reference_wrapper to a Program::Block or an Error if missed.
+        auto at(const std::uint32_t& addr)
+            -> std::expected<std::reference_wrapper<Block>, GetBlockError>
+        {   // Try retrieving a block using the address as an exact key.
             if(auto it = this->blocks.find(addr); it != this->blocks.end())
             {
-                return it->second.get<T>()
-                  // Transforms to std::expected.
-                    .transform([]<class R>(R& ref)
-                        -> std::expected<R, GetBlockError>
-                    {
-                        return ref;
-                    })
-                // Mismatched block types.
-                .value_or(std::unexpected(GetBlockError
-                    {
-                        .type     = GetBlockError::Type::Mismatch,
-                        .message  = std::format("Expected variant type of \"{}\"; block variant is of a different type.", typeid(T).name()),
-                    }));
+                return std::ref(it->second);
+            };
+
+            for(const auto& start: std::views::keys(this->blocks))
+            {   // Get the end address of the block.
+                auto end = start + this->blocks[start].size();
+
+                // Compare for the address being in range of the block.
+                if(addr >= start && addr <= end)
+                {
+                    return std::ref(this->blocks[start]);
+                };
+            };
+
+            return std::unexpected(GetBlockError
+                {
+                    .type     = GetBlockError::Type::Miss,
+                    .message  = std::format("Failed to find a block containing or at the address: {}", addr),
+                });
+        };
+
+        // Returns a std::reference_wrapper to an unwrapped Program::Block variant type or an error if missed.
+        template<class T> auto unwrap_at(const std::uint32_t& addr)
+            -> std::expected<std::reference_wrapper<T>, GetBlockError>
+        {   // Get the block for the address.
+            if(auto block = this->at(addr); block.has_value())
+            {
+                return block->get().unwrap<T>()
+                  .transform([]<class R>(R& ref)
+                          -> std::expected<R, GetBlockError>
+                      {
+                          return ref;
+                      })
+                  .value_or(std::unexpected(GetBlockError
+                      {
+                          .type     = GetBlockError::Type::Mismatch,
+                          .message  = std::format("Expected variant type of \"{}\"; while block variant is of a different type", typeid(T).name()),
+                      }));
             }
             else
             {
-                for(const auto& start: std::views::keys(this->blocks))
-                {   // Get the end address of the block.
-                    const auto end = start + this->blocks[start].size();
-
-                    // Return if the address is within the range of the block.
-                    if(addr > start && addr < end)
-                    {
-                        return this->blocks[start];
-                    };
-                };
-
-                return std::unexpected(GetBlockError
-                    {
-                        .type     = GetBlockError::Type::Miss,
-                        .message  = std::format("Missed locating a block for the address {}", addr),
-                    });
+                return block.error();
             };
         };
     };
