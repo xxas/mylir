@@ -327,28 +327,6 @@ namespace mylir
                 return Instruction::pattern(this->mnemonic, *df_pattern);
             };
         };
-
-        // Program blocks; text, or data blocks.
-        using TextBlock = std::vector<Instruction>;
-        using DataBlock = std::vector<std::uint8_t>;
-        using AnyBlock  = std::variant<TextBlock, DataBlock>;
-
-        // Block constraint.
-        template<class T> concept Block = std::same_as<TextBlock, T> || std::same_as<DataBlock, T>;
-   
-        // Block width; width measured in elements.
-        constexpr auto block_width(const AnyBlock& block)
-            -> std::size_t
-        {
-            if(std::holds_alternative<TextBlock>(block))
-            {
-                return std::get<TextBlock>(block).size();
-            }
-            else
-            {
-                return std::get<DataBlock>(block).size();
-            };
-        };
     };
 };
 

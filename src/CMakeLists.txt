@@ -9,15 +9,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_MODULE_STD ON)
 
 add_library(mylir_lib)
-target_sources(
-  mylir_lib
-  PUBLIC FILE_SET
-         cxx_modules
-         TYPE
-         CXX_MODULES
-         FILES
+target_sources(mylir_lib
+  PUBLIC FILE_SET cxx_modules
+  TYPE CXX_MODULES FILES
          lang.cppm
-         mod.cppm
          program.cppm
          cpu.cppm
-         lexer.cppm)
+         lexer.cppm
+         mod.cppm)
