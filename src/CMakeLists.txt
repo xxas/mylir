@@ -15,5 +15,6 @@ target_sources(mylir_lib
          lang.cppm
          program.cppm
          cpu.cppm
+         execute.cppm
          lexer.cppm
          mod.cppm)

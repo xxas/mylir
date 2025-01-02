@@ -5,3 +5,4 @@ export module mylir;
 export import :lang;
 export import :program;
 export import :cpu;
+export import :execute;

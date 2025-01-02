@@ -1,13 +1,12 @@
-export module mylir: cpu;
+export module mylir:cpu;
 
 import std;
 import :lang;
 import :program;
 
-namespace mylir
-{
+namespace mylir {
     struct Cpu
-    {   // Cpu registers; regid --> value.
-        std::unordered_map<lang::Register::Type, lang::Operand::Immediate> registers;
+    { // Cpu registers; regid --> value.
+        std::unordered_map<Register::Type, Operand::Immediate> registers;
     };
-};
+}; // namespace mylir
