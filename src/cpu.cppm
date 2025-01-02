@@ -4,9 +4,10 @@ import std;
 import :lang;
 import :program;
 
-namespace mylir {
+namespace mylir
+{
     struct Cpu
-    { // Cpu registers; regid --> value.
+    {   // Cpu registers; regid --> value.
         std::unordered_map<Register::Type, Operand::Immediate> registers;
     };
-}; // namespace mylir
+};

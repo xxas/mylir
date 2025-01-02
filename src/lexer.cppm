@@ -22,8 +22,6 @@ namespace mylir
                 Invalid,        // Unknown; or invalid tokens.
             } type;
         };
-
-
     };
 };
 
